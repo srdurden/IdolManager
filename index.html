@@ -246,33 +246,53 @@ body.reduce-motion .tech-action.ss-tech-leaving,body.reduce-motion .action-feedb
   .modal-recruit .casting-finance b{margin-top:3px;font-size:14px;white-space:normal;overflow-wrap:anywhere}
   .modal-recruit .casting-options-list{gap:10px}
   .modal-recruit .candidate-card{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
     width:100%;
-    grid-template-columns:minmax(0,1fr);
     gap:10px;
     padding:14px;
     overflow:hidden;
   }
-  .modal-recruit .candidate-profile{width:100%;gap:10px}
+  .modal-recruit .candidate-card>*{grid-column:auto!important;min-width:0}
+  .modal-recruit .candidate-profile{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:start!important;
+    width:100%;
+    gap:11px;
+  }
+  .modal-recruit .candidate-profile .candidate-type{grid-column:1!important;justify-self:start}
   .modal-recruit .candidate-identity{width:100%;gap:12px}
   .modal-recruit .candidate-identity>div:last-child{min-width:0}
-  .modal-recruit .candidate-identity h3{font-size:20px}
+  .modal-recruit .candidate-identity h3{font-size:20px;white-space:normal;overflow:visible;text-overflow:clip}
   .modal-recruit .candidate-card .avatar{width:54px;height:54px;font-size:23px}
-  .modal-recruit .candidate-stats{width:100%;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .modal-recruit .candidate-stats{
+    display:grid!important;
+    width:100%;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:7px;
+    margin:0!important;
+  }
   .modal-recruit .candidate-skill{width:100%;padding:10px 11px}
   .modal-recruit .candidate-footer{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
     width:100%;
-    grid-template-columns:minmax(0,1fr) minmax(120px,145px);
-    gap:9px;
+    gap:12px;
+    padding-top:2px;
+    text-align:left;
   }
-  .modal-recruit .candidate-footer .button{min-width:0;padding-inline:10px}
+  .modal-recruit .candidate-footer strong{display:flex;align-items:baseline;gap:4px;min-width:0;white-space:nowrap}
+  .modal-recruit .candidate-footer strong small{display:inline}
+  .modal-recruit .candidate-footer .button{width:auto;min-width:138px;flex:0 0 auto;padding-inline:14px}
   .modal-recruit .casting-footer{
-    position:sticky;
-    z-index:3;
-    bottom:-14px;
+    position:static;
     margin:16px -14px -14px;
     padding:11px 14px calc(11px + env(safe-area-inset-bottom));
     background:#faf8ff;
-    box-shadow:0 -10px 24px #23274412;
+    box-shadow:none;
   }
 
   /* En vertical la técnica ocupa varias filas: se amplía la tarjeta para
@@ -291,8 +311,9 @@ body.reduce-motion .tech-action.ss-tech-leaving,body.reduce-motion .action-feedb
   .tech-action.ss-tech-leaving{overflow:hidden}
 }
 @media (max-width:360px){
-  .modal-recruit .candidate-footer{grid-template-columns:1fr}
+  .modal-recruit .candidate-footer{align-items:stretch!important;flex-direction:column!important}
   .modal-recruit .candidate-footer strong{text-align:left}
+  .modal-recruit .candidate-footer .button{width:100%}
   .tech-action>.tech-badge{grid-column:1/-1}
 }
 </style>
