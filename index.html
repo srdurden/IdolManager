@@ -219,6 +219,83 @@ body.reduce-motion .progress>i,body.reduce-motion .live-progress>i,body.reduce-m
 body.reduce-motion .tech-action.ss-tech-leaving,body.reduce-motion .action-feedback-back,body.reduce-motion .action-feedback-card,body.reduce-motion .action-feedback-icon,body.reduce-motion .action-feedback-card:after,body.reduce-motion .day-sky,body.reduce-motion .day-scene-glow,body.reduce-motion .day-city,body.reduce-motion .day-light-sweep,body.reduce-motion .day-transition-stage,body.reduce-motion .day-transition.flip .day-sheet{animation:none!important}
 @media(prefers-reduced-motion:reduce){.tech-action.ss-tech-leaving,.action-feedback-back,.action-feedback-card,.action-feedback-icon,.action-feedback-card:after,.day-sky,.day-scene-glow,.day-city,.day-light-sweep,.day-transition-stage,.day-transition.flip .day-sheet{animation:none!important}}
 </style>
+<style>
+/* Correcciones responsive para casting y concierto en smartphones. */
+@media (max-width:650px){
+  /* El casting funciona como una hoja móvil, sin desbordamiento lateral. */
+  .modal-recruit{
+    width:calc(100vw - 20px);
+    max-width:none;
+    max-height:calc(100dvh - 12px);
+    padding:20px 14px 14px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+  }
+  .modal-recruit .casting-head h2{padding-right:38px;font-size:23px;line-height:1.15}
+  .modal-recruit .casting-head p{margin-bottom:14px;font-size:12px}
+  .modal-recruit .casting-finance{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:7px;
+    margin:11px 0 14px;
+    padding:8px;
+  }
+  .modal-recruit .casting-finance>div{display:block;min-width:0;padding:8px}
+  .modal-recruit .casting-finance>div:first-child{grid-column:1/-1}
+  .modal-recruit .casting-finance b{margin-top:3px;font-size:14px;white-space:normal;overflow-wrap:anywhere}
+  .modal-recruit .casting-options-list{gap:10px}
+  .modal-recruit .candidate-card{
+    width:100%;
+    grid-template-columns:minmax(0,1fr);
+    gap:10px;
+    padding:14px;
+    overflow:hidden;
+  }
+  .modal-recruit .candidate-profile{width:100%;gap:10px}
+  .modal-recruit .candidate-identity{width:100%;gap:12px}
+  .modal-recruit .candidate-identity>div:last-child{min-width:0}
+  .modal-recruit .candidate-identity h3{font-size:20px}
+  .modal-recruit .candidate-card .avatar{width:54px;height:54px;font-size:23px}
+  .modal-recruit .candidate-stats{width:100%;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .modal-recruit .candidate-skill{width:100%;padding:10px 11px}
+  .modal-recruit .candidate-footer{
+    width:100%;
+    grid-template-columns:minmax(0,1fr) minmax(120px,145px);
+    gap:9px;
+  }
+  .modal-recruit .candidate-footer .button{min-width:0;padding-inline:10px}
+  .modal-recruit .casting-footer{
+    position:sticky;
+    z-index:3;
+    bottom:-14px;
+    margin:16px -14px -14px;
+    padding:11px 14px calc(11px + env(safe-area-inset-bottom));
+    background:#faf8ff;
+    box-shadow:0 -10px 24px #23274412;
+  }
+
+  /* En vertical la técnica ocupa varias filas: se amplía la tarjeta para
+     que el botón Activar no quede recortado por el límite de escritorio. */
+  .tech-action{
+    grid-template-columns:auto minmax(0,1fr);
+    max-height:280px;
+    overflow:visible;
+    gap:10px 12px;
+    padding:13px;
+  }
+  .tech-action>.avatar{grid-column:1;grid-row:1;align-self:start}
+  .tech-action>div:nth-child(2){grid-column:2;grid-row:1;min-width:0}
+  .tech-action>.tech-badge{grid-column:2;grid-row:2;justify-self:start;white-space:normal}
+  .tech-action>.button{grid-column:1/-1;grid-row:3;width:100%;min-height:46px}
+  .tech-action.ss-tech-leaving{overflow:hidden}
+}
+@media (max-width:360px){
+  .modal-recruit .candidate-footer{grid-template-columns:1fr}
+  .modal-recruit .candidate-footer strong{text-align:left}
+  .tech-action>.tech-badge{grid-column:1/-1}
+}
+</style>
 </head>
 <body>
 <div id="loading" class="loading"><div><div class="spark">✦</div><b>IDOL MANAGER</b></div></div>
