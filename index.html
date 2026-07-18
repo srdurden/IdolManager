@@ -232,7 +232,7 @@ body.reduce-motion .tech-action.ss-tech-leaving,body.reduce-motion .action-feedb
   100%{opacity:0;transform:translate(112%,145px) rotate(22deg) rotateX(42deg) scale(.88);filter:blur(2px)}
 }
 @keyframes ssRevealNewSheetSolid{
-  0%{opacity:1;transform:scale(.965) translateY(12px);filter:brightness(.9)}
+  0%{opacity:1;transform:none;filter:none}
   100%{opacity:1;transform:none;filter:none}
 }
 @keyframes ssRevealNewSheetContent{
@@ -246,12 +246,21 @@ body.reduce-motion .tech-action.ss-tech-leaving,body.reduce-motion .action-feedb
   isolation:isolate;
   -webkit-backface-visibility:hidden;
 }
+.day-transition-stage{
+  height:min(510px,82vh);
+  min-height:0;
+}
+.day-transition-stage>.day-sheet{
+  height:100%;
+  min-height:0;
+  max-height:none;
+}
 .day-sheet.new{
   z-index:1;
   opacity:1;
   background:#fff;
-  transform:translateY(10px) scale(.965);
-  filter:brightness(.9);
+  transform:none;
+  filter:none;
 }
 .day-sheet.new>.day-sheet-inner{visibility:hidden;opacity:0}
 .day-transition.flip .day-sheet.old{
