@@ -221,6 +221,55 @@ body.reduce-motion .tech-action.ss-tech-leaving,body.reduce-motion .action-feedb
 </style>
 <style>
 /* Correcciones responsive para casting y concierto en smartphones. */
+/* La hoja del día siguiente permanece sólida pero sin contenido mientras
+   está debajo. Así la hoja actual la cubre por completo, también en Safari. */
+@keyframes ssTearCalendarSheetOpaque{
+  0%{opacity:1;transform:none;filter:none}
+  12%{opacity:1;transform:translateY(5px) scaleY(1.012) rotateX(-2deg);filter:none}
+  27%{opacity:1;transform:translate(3px,13px) scaleY(1.025) rotate(1deg);box-shadow:0 36px 90px #0b102675;filter:none}
+  45%{opacity:1;transform:translate(16px,34px) rotate(4deg) rotateX(12deg);filter:none}
+  78%{opacity:1;transform:translate(58%,88px) rotate(13deg) rotateX(28deg);filter:none}
+  100%{opacity:0;transform:translate(112%,145px) rotate(22deg) rotateX(42deg) scale(.88);filter:blur(2px)}
+}
+@keyframes ssRevealNewSheetSolid{
+  0%{opacity:1;transform:scale(.965) translateY(12px);filter:brightness(.9)}
+  100%{opacity:1;transform:none;filter:none}
+}
+@keyframes ssRevealNewSheetContent{
+  from{opacity:0;transform:translateY(7px)}
+  to{opacity:1;transform:none}
+}
+.day-sheet.old{
+  z-index:4;
+  opacity:1;
+  background:#fff;
+  isolation:isolate;
+  -webkit-backface-visibility:hidden;
+}
+.day-sheet.new{
+  z-index:1;
+  opacity:1;
+  background:#fff;
+  transform:translateY(10px) scale(.965);
+  filter:brightness(.9);
+}
+.day-sheet.new>.day-sheet-inner{visibility:hidden;opacity:0}
+.day-transition.flip .day-sheet.old{
+  z-index:4;
+  animation:ssTearCalendarSheetOpaque .92s cubic-bezier(.35,.02,.2,1) both;
+}
+.day-transition.flip .day-sheet.new{
+  z-index:1;
+  animation:ssRevealNewSheetSolid .72s ease .12s both;
+}
+.day-transition.flip .day-sheet.new>.day-sheet-inner{
+  visibility:visible;
+  animation:ssRevealNewSheetContent .24s ease .82s both;
+}
+body.reduce-motion .day-sheet.new>.day-sheet-inner{visibility:visible;opacity:1;animation:none!important;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .day-sheet.new>.day-sheet-inner{visibility:visible;opacity:1;animation:none!important;transform:none}
+}
 @media (max-width:650px){
   /* El casting funciona como una hoja móvil, sin desbordamiento lateral. */
   .modal-recruit{
