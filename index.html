@@ -280,6 +280,19 @@ body.reduce-motion .day-sheet.new>.day-sheet-inner{visibility:visible;opacity:1;
   .day-sheet.new>.day-sheet-inner{visibility:visible;opacity:1;animation:none!important;transform:none}
 }
 @media (max-width:650px){
+  /* Los pasos del tutorial se leen desde arriba, no como una hoja inferior. */
+  .modal-back.tutorial-modal-back{
+    align-items:start!important;
+    justify-items:center;
+    overflow-y:auto;
+    padding:10px 10px calc(10px + env(safe-area-inset-bottom));
+    padding-top:max(10px,env(safe-area-inset-top));
+  }
+  .tutorial-modal-back>.modal{
+    margin-top:0;
+    margin-bottom:auto;
+    border-radius:20px;
+  }
   /* El casting funciona como una hoja móvil, sin desbordamiento lateral. */
   .modal-recruit{
     width:calc(100vw - 20px);
@@ -1366,6 +1379,24 @@ ssRenderCustomizeModal=function(state){return ssRenderCustomizeModalBeforeCopyTr
 /* La reserva obligatoria semanal no necesita un botón parpadeante. */
 const ssGuideTutorialBeforeTodayMerge=guideTutorialNext;
 guideTutorialNext=function(){document.querySelectorAll('.tutorial-next').forEach(element=>element.classList.remove('tutorial-next'));if(game?.weeklyBookingRequired){if(screen!=='concerts'&&!modal)markTutorialButton("setScreen('concerts')");return}if(!modal&&['today','actions'].includes(screen)&&[5,6,7].includes(game?.tutorial)){let fragment={5:'openPromotion()',6:"routeAction('train')",7:"routeAction('rest')"}[game.tutorial];markTutorialButton(fragment);return}return ssGuideTutorialBeforeTodayMerge()}
+
+/* Los modales que forman parte del tutorial se anclan arriba en móvil. */
+function ssIsTutorialModal(state){
+ if(!state)return false;
+ if(['newGame','tutorial'].includes(state.type)||state.data?.tutorial)return true;
+ return !!game&&!!game.tutorial&&!game.tutorialDone&&['loan','recruit','customize','produce','book','promote','train','confirmDay'].includes(state.type);
+}
+const ssRenderModalBeforeTopTutorial=renderModal;
+renderModal=function(state){let html=ssRenderModalBeforeTopTutorial(state);return ssIsTutorialModal(state)?html.replace('class="modal-back"','class="modal-back tutorial-modal-back"'):html}
+
+/* En el casting guiado todas las candidatas son decisiones válidas. */
+const ssGuideTutorialBeforeFreeCastingChoice=guideTutorialNext;
+guideTutorialNext=function(){
+ ssGuideTutorialBeforeFreeCastingChoice();
+ if(modal?.type==='recruit'&&(modal.data?.tutorial||(game?.tutorial===2&&!game?.tutorialDone))){
+  document.querySelectorAll('.modal-recruit button[onclick^="recruitMember("]').forEach(button=>button.classList.remove('tutorial-next'));
+ }
+}
 
 renderers.today=renderToday;renderers.actions=renderToday;renderers.songs=renderSongs;renderers.songDetail=renderSongDetail;renderers.roles=renderSongs;renderers.group=renderGroup;renderers.memberDetail=renderMemberDetail;renderers.concerts=renderConcerts;renderers.concertResult=renderConcertResult;renderers.weekly=renderWeekly;renderers.goals=renderGoals;
 
